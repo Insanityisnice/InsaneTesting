@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.Data", "Insanity.Testing.Integration.Data\Insanity.Testing.Integration.Data.csproj", "{0C51AD9C-46CD-4EE6-A0A2-99B0410D4C29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.Http", "Insanity.Testing.Integration.Http\Insanity.Testing.Integration.Http.csproj", "{EBD8FF23-F77B-4B74-91CE-FE0FCBD1A0FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0C51AD9C-46CD-4EE6-A0A2-99B0410D4C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C51AD9C-46CD-4EE6-A0A2-99B0410D4C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C51AD9C-46CD-4EE6-A0A2-99B0410D4C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBD8FF23-F77B-4B74-91CE-FE0FCBD1A0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBD8FF23-F77B-4B74-91CE-FE0FCBD1A0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBD8FF23-F77B-4B74-91CE-FE0FCBD1A0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBD8FF23-F77B-4B74-91CE-FE0FCBD1A0FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
