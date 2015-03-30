@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.Http", "Insanity.Testing.Integration.Http\Insanity.Testing.Integration.Http.csproj", "{EBD8FF23-F77B-4B74-91CE-FE0FCBD1A0FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.Http.UnitTests", "Insanity.Testing.Integration.Http.UnitTests\Insanity.Testing.Integration.Http.UnitTests.csproj", "{EDF02721-4318-475B-BB9B-FFAECF4F5291}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8C55FBBA-2AFE-4C08-A7CF-9F8876108781}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +31,15 @@ Global
 		{EBD8FF23-F77B-4B74-91CE-FE0FCBD1A0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBD8FF23-F77B-4B74-91CE-FE0FCBD1A0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBD8FF23-F77B-4B74-91CE-FE0FCBD1A0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF02721-4318-475B-BB9B-FFAECF4F5291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF02721-4318-475B-BB9B-FFAECF4F5291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF02721-4318-475B-BB9B-FFAECF4F5291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF02721-4318-475B-BB9B-FFAECF4F5291}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EDF02721-4318-475B-BB9B-FFAECF4F5291} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
 	EndGlobalSection
 EndGlobal
