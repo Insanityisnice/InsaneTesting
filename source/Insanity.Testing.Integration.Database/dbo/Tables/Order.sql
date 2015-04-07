@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Order]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+	[ShippedDate] DATETIME NULL, 
+	[CreatedDate] DATETIME NOT NULL, 
+	[CreatedBy] NVARCHAR(50) NOT NULL,
+	[UpdatedDate] DATETIME NOT NULL, 
+	[UpdatedBy] NVARCHAR(50) NOT NULL
+)
