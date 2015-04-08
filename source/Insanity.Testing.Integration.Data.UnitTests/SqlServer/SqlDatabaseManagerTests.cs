@@ -13,13 +13,15 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
 		{
 			const string managerName = "Test";
 
+			DatabaseManagers.SetDataDirectory();
+
 			// Setup
 			string connectionString = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["TestDatabase"]].ConnectionString;
 			string dacpacFile = @"..\..\..\Insanity.Testing.Integration.Database\bin\Debug\Insanity.Testing.Integration.Database.dacpac";
 			SqlDatabase.Setup(managerName, connectionString, null, dacpacFile);
 			
 			//Detach
-			SqlDatabase.Detach(managerName);
+			SqlDatabase.Delete(managerName);
 		}
 	}
 }

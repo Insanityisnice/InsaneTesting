@@ -29,6 +29,7 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 		#region Private Types
 		private class DatabaseImpl : IDatabase
 		{
+			//TODO: This is really getting to be a mess need to see if it can be cleaned up.
 			#region Public Properties
 			public string ConnectionString { get; private set; }
 			#endregion
@@ -46,23 +47,18 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 			#region IDatabase Implementation
 			public void Create(params string[] dacpacFiles)
 			{
+				DeleteDatabase();
+
 				var connectionStringBuilder = new SqlConnectionStringBuilder();
 				connectionStringBuilder.ConnectionString = ConnectionString;
 
-				var dacServices = new DacServices(GetDacFriendlyConnectionString(ConnectionString));
-				dacServices.Message += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, args.Message);
-				dacServices.ProgressChanged += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, String.Format("[{0}] {1} - {2}", args.OperationId, args.Status, args.Message));
-
-				var created = false;
-				foreach (var dacpacFile in dacpacFiles)
+				if(!String.IsNullOrWhiteSpace(connectionStringBuilder.AttachDBFilename))
 				{
-					var options = new DacDeployOptions();
-					options.DropObjectsNotInSource = false;
-
-					if (created == false) options.CreateNewDatabase = true;
-
-					ApplyDacPackage(dacpacFile, connectionStringBuilder.InitialCatalog, dacServices, options);
-					created = true;
+					CreateNewAttachedDbFileDatabase(dacpacFiles, connectionStringBuilder);
+				}
+				else
+				{
+					CreateNewDatabase(dacpacFiles, connectionStringBuilder);	
 				}
 			}
 			
@@ -104,21 +100,31 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 				}
 			}
 
-			public void KillDatabase()
+			public void DeleteDatabase()
 			{
+				//TODO: Make sure the database is attached.
 				var connectionStringBuilder = new SqlConnectionStringBuilder(ConnectionString);
 
 				var serverName = connectionStringBuilder.DataSource;
 				var databaseName = connectionStringBuilder.InitialCatalog;
 
 				var server = new Server(serverName);
-				server.KillAllProcesses(databaseName);
-				var database = server.Databases[databaseName];
-				if (database != null)
+
+				if (server.Databases.Contains(databaseName))
 				{
-					database.DatabaseOptions.UserAccess = DatabaseUserAccess.Single;
-					database.Alter(TerminationClause.RollbackTransactionsImmediately);
-					server.KillDatabase(databaseName);
+					server.KillAllProcesses(databaseName);
+					var database = server.Databases[databaseName];
+					if (database != null)
+					{
+						database.DatabaseOptions.UserAccess = DatabaseUserAccess.Single;
+						database.Alter(TerminationClause.RollbackTransactionsImmediately);
+						server.KillDatabase(databaseName);
+					}
+				}
+				else
+				{
+					File.Delete(GetDatabaseFileName(connectionStringBuilder.AttachDBFilename));
+					File.Delete(GetDatabaseFileName(connectionStringBuilder.AttachDBFilename.Replace(".mdf", "_log.ldf")));
 				}
 			}
 
@@ -233,20 +239,62 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 				}
 			}
 
-			private static string GetDatabaseFilename(string connectionString)
+			private static string GetDatabaseFileName(string filename)
 			{
-				var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
-				string filename = String.Empty;
-				if (connectionStringBuilder.AttachDBFilename.Contains("|DataDirectory|"))
+				if (filename.Contains("|DataDirectory|"))
 				{
-					filename = connectionStringBuilder.AttachDBFilename.Replace("|DataDirectory|", AppDomain.CurrentDomain.BaseDirectory);
-				}
-				else
-				{
-					filename = connectionStringBuilder.AttachDBFilename;
+					filename = filename.Replace("|DataDirectory|", AppDomain.CurrentDomain.BaseDirectory);
 				}
 
 				return filename;
+			}
+
+			private void CreateNewDatabase(string[] dacpacFiles, SqlConnectionStringBuilder connectionStringBuilder)
+			{
+				var created = false;
+				ApplyDacPackageFiles(dacpacFiles, connectionStringBuilder, () =>
+				{
+					var options = new DacDeployOptions();
+					options.DropObjectsNotInSource = false;
+
+					if (created == false)
+					{
+						options.CreateNewDatabase = true;
+						created = false;
+					}
+
+					return options;
+				});
+			}
+
+			private void CreateNewAttachedDbFileDatabase(string[] dacpacFiles, SqlConnectionStringBuilder connectionStringBuilder)
+			{
+				try
+				{
+					CreateDatabaseFileForAttachDbFile(connectionStringBuilder);
+					ApplyDacPackageFiles(dacpacFiles, connectionStringBuilder, () =>
+					{
+						var options = new DacDeployOptions();
+						options.DropObjectsNotInSource = false;
+						return options;
+					});
+				}
+				finally
+				{
+					DetachDatabase();
+				}
+			}
+
+			private void ApplyDacPackageFiles(string[] dacpacFiles, SqlConnectionStringBuilder connectionStringBuilder, Func<DacDeployOptions> options)
+			{
+				var dacServices = new DacServices(GetDacFriendlyConnectionString(ConnectionString));
+				dacServices.Message += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, args.Message);
+				dacServices.ProgressChanged += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, String.Format("[{0}] {1} - {2}", args.OperationId, args.Status, args.Message));
+
+				foreach (var dacpacFile in dacpacFiles)
+				{
+					ApplyDacPackage(dacpacFile, connectionStringBuilder.InitialCatalog, dacServices, options());
+				}
 			}
 
 			private void ApplyDacPackage(string dacpacFile, string initialCatalog, DacServices dacServices, DacDeployOptions options)
@@ -257,9 +305,32 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 				dacServices.Deploy(package, initialCatalog, true, options, cancellationToken);
 			}
 
+			private void CreateDatabaseFileForAttachDbFile(SqlConnectionStringBuilder connectionStringBuilder)
+			{
+				var serverName = connectionStringBuilder.DataSource;
+				var databaseName = connectionStringBuilder.InitialCatalog;
+				var fileName = connectionStringBuilder.AttachDBFilename;
+
+				var server = new Server(serverName);
+				Database database = new Database(server, databaseName);
+
+				database.FileGroups.Add(new FileGroup(database, "PRIMARY"));
+
+				DataFile dataFile = new DataFile(database.FileGroups["PRIMARY"], databaseName, GetDatabaseFileName(fileName));
+				LogFile logFile = new LogFile(database, String.Format("{0}_log", databaseName), GetDatabaseFileName(fileName.Replace(".mdf", "_log.ldf")));
+
+				database.FileGroups["PRIMARY"].Files.Add(dataFile);
+				database.LogFiles.Add(logFile);
+
+				database.Create();
+			}
+
 			private void GrantFileAccessForAttach()
 			{
-				var databaseFilename = GetDatabaseFilename(ConnectionString);
+				SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+				builder.ConnectionString = ConnectionString;
+
+				var databaseFilename = GetDatabaseFileName(builder.AttachDBFilename);
 
 				GrantFileAccess(databaseFilename);
 				GrantFileAccess(databaseFilename.Replace(".mdf", "_log.ldf"));
@@ -281,7 +352,5 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 			#endregion
 		}
 		#endregion
-
-		
 	}
 }

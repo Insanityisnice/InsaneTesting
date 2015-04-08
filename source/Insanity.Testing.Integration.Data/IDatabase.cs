@@ -11,7 +11,7 @@ namespace Insanity.Testing.Integration.Data
 		void Update(params string[] dacpacFiles);
 
 		void DetachDatabase();
-		void KillDatabase();
+		void DeleteDatabase();
 
 		int ExecuteNonQuery(Action<DbCommand> prepare);
 

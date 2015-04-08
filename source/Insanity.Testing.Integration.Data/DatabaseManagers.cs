@@ -24,7 +24,7 @@ namespace Insanity.Testing.Integration.Data
 			
 		}
 
-		public void SetDataDirectory(string dataDirectory = "")
+		public static void SetDataDirectory(string dataDirectory = "")
 		{
 			if (String.IsNullOrWhiteSpace(dataDirectory))
 			{

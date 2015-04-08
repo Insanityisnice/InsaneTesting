@@ -26,5 +26,10 @@ namespace Insanity.Testing.Integration.Data
 		{
 			DatabaseManagers.Instance[managerName].Database.DetachDatabase();
 		}
+
+		public static void Delete(string managerName)
+		{
+			DatabaseManagers.Instance[managerName].Database.DeleteDatabase();
+		}
 	}
 }
