@@ -9,7 +9,7 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
 	public class SqlDatabaseManagerTests
 	{
 		[TestMethod]
-		public void SingleDacpack_DeploingToLocalDb_ValidDabaseDeployed()
+		public void SingleDacpack_DeploingToLocalDb_DatabaseCreatedAndDeployed()
 		{
 			const string managerName = "Test";
 
@@ -18,7 +18,7 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
 			// Setup
 			string connectionString = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["TestDatabase"]].ConnectionString;
 			string dacpacFile = @"..\..\..\Insanity.Testing.Integration.Database\bin\Debug\Insanity.Testing.Integration.Database.dacpac";
-			SqlDatabase.Setup(managerName, connectionString, null, dacpacFile);
+			SqlDatabase.SetupNew(managerName, connectionString, null, dacpacFile);
 			
 			//Detach
 			SqlDatabase.Delete(managerName);

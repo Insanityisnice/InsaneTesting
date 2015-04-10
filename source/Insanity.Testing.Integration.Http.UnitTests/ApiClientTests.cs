@@ -12,6 +12,7 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 	[TestClass]
 	public class ApiClientTests
 	{
+		[Ignore]
 		[TestMethod]
 		[UseReporter(typeof(DiffReporter))]
 		public void Get_EmptyResource_EmptyReturned()
