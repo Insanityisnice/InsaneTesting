@@ -9,29 +9,29 @@ namespace Insanity.Testing.Integration.Data
 {
 	public static class SqlDatabase
 	{
-		public static void SetupNew(string managerName, string connectionString, Action<IDatabase> setup, params string[] dacpacFiles)
+		public static void SetupNew(string managerName, string connectionString, Action<IDatabase> seed, params string[] dacpacFiles)
 		{
 			DatabaseManagers.Instance.Add(managerName, new SqlDatabaseManager(connectionString));
 
 			var database = DatabaseManagers.Instance[managerName].Database;
 			database.Create(dacpacFiles);
 
-			if (setup != null)
+			if (seed != null)
 			{
-				setup(database);
+				seed(database);
 			}
 		}
 
-		public static void Setup(string managerName, string connectionString, Action<IDatabase> setup, params string[] dacpacFiles)
+		public static void Setup(string managerName, string connectionString, Action<IDatabase> seed, params string[] dacpacFiles)
 		{
 			DatabaseManagers.Instance.Add(managerName, new SqlDatabaseManager(connectionString));
 
 			var database = DatabaseManagers.Instance[managerName].Database;
 			database.Update(dacpacFiles);
 
-			if (setup != null)
+			if (seed != null)
 			{
-				setup(database);
+				seed(database);
 			}
 		}
 
@@ -43,6 +43,7 @@ namespace Insanity.Testing.Integration.Data
 		public static void Delete(string managerName)
 		{
 			DatabaseManagers.Instance[managerName].Database.DeleteDatabase();
+			DatabaseManagers.Instance.Remove(managerName);
 		}
 	}
 }

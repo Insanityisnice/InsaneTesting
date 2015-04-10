@@ -9,6 +9,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
 using System.Threading;
+using System.Linq;
+using System.Collections.Specialized;
 
 namespace Insanity.Testing.Integration.Data.SqlServer
 {
