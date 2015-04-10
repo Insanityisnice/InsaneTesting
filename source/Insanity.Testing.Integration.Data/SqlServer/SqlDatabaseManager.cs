@@ -11,6 +11,7 @@ using System.Security.AccessControl;
 using System.Threading;
 using System.Linq;
 using System.Collections.Specialized;
+using System.Globalization;
 
 namespace Insanity.Testing.Integration.Data.SqlServer
 {
@@ -49,6 +50,8 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 			#region IDatabase Implementation
 			public void Create(params string[] dacpacFiles)
 			{
+				if (dacpacFiles == null) throw new ArgumentNullException("dacpacFiles");
+
 				DeleteDatabase();
 
 				var connectionStringBuilder = new SqlConnectionStringBuilder();
@@ -66,12 +69,14 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 			
 			public void Update(params string[] dacpacFiles)
 			{
+				if (dacpacFiles == null) throw new ArgumentNullException("dacpacFiles");
+
 				using (var connection = new SqlConnection(ConnectionString))
 				{
 					connection.Open();
 					var dacServices = new DacServices(GetDacFriendlyConnectionString(ConnectionString));
 					dacServices.Message += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, args.Message);
-					dacServices.ProgressChanged += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, String.Format("[{0}] {1} - {2}", args.OperationId, args.Status, args.Message));
+					dacServices.ProgressChanged += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, String.Format(CultureInfo.InvariantCulture, "[{0}] {1} - {2}", args.OperationId, args.Status, args.Message));
 
 					foreach (var dacpacFile in dacpacFiles)
 					{
@@ -80,7 +85,6 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 
 						ApplyDacPackage(dacpacFile, connection.Database, dacServices, options);
 					}
-					connection.Close();
 				}
 			}
 
@@ -143,7 +147,7 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 				return rows;
 			}
 
-			public TResult ExecuteReader<TResult>(Action<DbCommand> prepare, Func<IDataReader, TResult> function)
+			public TResult ExecuteReader<TResult>(Action<DbCommand> prepare, Func<IDataReader, TResult> process)
 			{
 				var result = default(TResult);
 
@@ -152,14 +156,14 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 					prepare(command);
 					using (var reader = command.ExecuteReader())
 					{
-						result = function(reader);
+						result = process(reader);
 					}
 				});
 
 				return result;
 			}
 
-			public TResult ExecuteReader<TResult>(Action<DbCommand> prepare, Func<DbConnection, IDataReader, TResult> function)
+			public TResult ExecuteReader<TResult>(Action<DbCommand> prepare, Func<DbConnection, IDataReader, TResult> process)
 			{
 				var result = default(TResult);
 
@@ -168,76 +172,62 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 					prepare(command);
 					using (var reader = command.ExecuteReader())
 					{
-						result = function(connection, reader);
+						result = process(connection, reader);
 					}
 				});
 
 				return result;
 			}
 
-			public IEnumerable<TResult> GetResults<TResult>(Action<DbCommand> prepare, Func<IDataReader, TResult> function)
+			public IEnumerable<TResult> GetResults<TResult>(Action<DbCommand> prepare, Func<IDataReader, TResult> process)
 			{
-				return ExecuteReader(prepare, reader => reader.ToList(function));
+				return ExecuteReader(prepare, reader => reader.ToList(process));
 			}
 
-			public Dictionary<TKey, TValue> GetResults<TKey, TValue>(Action<DbCommand> prepare, Func<IDataReader, TValue> function, Func<TValue, TKey> keySelector)
+			public Dictionary<TKey, TValue> GetResults<TKey, TValue>(Action<DbCommand> prepare, Func<IDataReader, TValue> process, Func<TValue, TKey> keySelector)
 			{
-				return ExecuteReader(prepare, reader => reader.ToDictionary(function, keySelector));
+				return ExecuteReader(prepare, reader => reader.ToDictionary(process, keySelector));
 			}
 
-			public TResult GetSingleResult<TResult>(Action<DbCommand> prepare, Func<IDataReader, TResult> function)
+			public TResult GetSingleResult<TResult>(Action<DbCommand> prepare, Func<IDataReader, TResult> process)
 			{
-				return ExecuteReader(prepare, reader => reader.Read() ? function(reader) : default(TResult));
+				return ExecuteReader(prepare, reader => reader.Read() ? process(reader) : default(TResult));
 			}
 			#endregion
 
 			#region Private Methods
-			private void ProcessCommand(Action<DbCommand> function)
+			private void ProcessCommand(Action<DbCommand> process)
 			{
-				ProcessCommand((connection, command) => function(command));
+				ProcessCommand((connection, command) => process(command));
 			}
 
-			private void ProcessCommand(Action<DbConnection, DbCommand> function)
+			private void ProcessCommand(Action<DbConnection, DbCommand> process)
 			{
-				if (function == null)
+				if (process == null)
 				{
-					throw new ArgumentNullException("function");
+					throw new ArgumentNullException("process");
 				}
 
 				ProcessConnection(connection =>
 				{
 					using (var command = connection.CreateCommand())
 					{
-						function(connection, command);
+						process(connection, command);
 					}
 				});
 			}
 
-			private void ProcessConnection(Action<SqlConnection> function)
+			private void ProcessConnection(Action<SqlConnection> process)
 			{
-				if (function == null)
+				if (process == null)
 				{
-					throw new ArgumentNullException("function");
+					throw new ArgumentNullException("process");
 				}
 
 				using (var connection = new SqlConnection(ConnectionString))
 				{
 					connection.Open();
-					function(connection);
-				}
-			}
-
-			private T ProcessConnection<T>(Func<SqlConnection, T> function)
-			{
-				if (function == null)
-				{
-					throw new ArgumentNullException("function");
-				}
-
-				using (var connection = new SqlConnection(ConnectionString))
-				{
-					connection.Open();
-					return function(connection);
+					process(connection);
 				}
 			}
 
@@ -291,7 +281,7 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 			{
 				var dacServices = new DacServices(GetDacFriendlyConnectionString(ConnectionString));
 				dacServices.Message += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, args.Message);
-				dacServices.ProgressChanged += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, String.Format("[{0}] {1} - {2}", args.OperationId, args.Status, args.Message));
+				dacServices.ProgressChanged += (sender, args) => Debug.WriteLineIf(Debugger.IsAttached, String.Format(CultureInfo.InvariantCulture, "[{0}] {1} - {2}", args.OperationId, args.Status, args.Message));
 
 				foreach (var dacpacFile in dacpacFiles)
 				{
@@ -299,7 +289,7 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 				}
 			}
 
-			private void ApplyDacPackage(string dacpacFile, string initialCatalog, DacServices dacServices, DacDeployOptions options)
+			private static void ApplyDacPackage(string dacpacFile, string initialCatalog, DacServices dacServices, DacDeployOptions options)
 			{
 				var package = DacPackage.Load(dacpacFile);
 				CancellationToken? cancellationToken = new CancellationToken();
@@ -319,12 +309,14 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 				database.FileGroups.Add(new FileGroup(database, "PRIMARY"));
 
 				DataFile dataFile = new DataFile(database.FileGroups["PRIMARY"], databaseName, GetDatabaseFileName(fileName));
-				LogFile logFile = new LogFile(database, String.Format("{0}_log", databaseName), GetDatabaseFileName(fileName.Replace(".mdf", "_log.ldf")));
+				LogFile logFile = new LogFile(database, String.Format(CultureInfo.InvariantCulture, "{0}_log", databaseName), GetDatabaseFileName(fileName.Replace(".mdf", "_log.ldf")));
 
 				database.FileGroups["PRIMARY"].Files.Add(dataFile);
 				database.LogFiles.Add(logFile);
 
 				database.Create();
+
+				GrantFileAccessForAttach();
 			}
 
 			private void GrantFileAccessForAttach()

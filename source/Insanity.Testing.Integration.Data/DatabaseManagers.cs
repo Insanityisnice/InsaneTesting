@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Insanity.Testing.Integration.Data
 {
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
 	public class DatabaseManagers
 	{
 		public static DatabaseManagers Instance { get; private set; }
@@ -26,7 +28,20 @@ namespace Insanity.Testing.Integration.Data
 			
 		}
 
-		public static void SetDataDirectory(string dataDirectory = "")
+		~DatabaseManagers()
+		{
+			if(managersLock != null)
+			{
+				managersLock.Dispose();
+			}
+		}
+
+		public static void SetDataDirectory()
+		{
+			SetDataDirectory(String.Empty);
+		}
+
+		public static void SetDataDirectory(string dataDirectory)
 		{
 			if (String.IsNullOrWhiteSpace(dataDirectory))
 			{
@@ -41,12 +56,12 @@ namespace Insanity.Testing.Integration.Data
 			connectionStringBuilder.ConnectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
 
 			var guid = Guid.NewGuid();
-			var newDatabaseName = String.Format("{0}_{1}", connectionStringBuilder.InitialCatalog, guid);
+			var newDatabaseName = String.Format(CultureInfo.InvariantCulture, "{0}_{1}", connectionStringBuilder.InitialCatalog, guid);
 			connectionStringBuilder.InitialCatalog = newDatabaseName;
 
 			if(!String.IsNullOrWhiteSpace(connectionStringBuilder.AttachDBFilename))
 			{
-				connectionStringBuilder.AttachDBFilename = connectionStringBuilder.AttachDBFilename.Replace(".mdf", String.Format("_{0}.mdf", newDatabaseName));
+				connectionStringBuilder.AttachDBFilename = connectionStringBuilder.AttachDBFilename.Replace(".mdf", String.Format(CultureInfo.InvariantCulture, "_{0}.mdf", newDatabaseName));
 			}
 
 			Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);

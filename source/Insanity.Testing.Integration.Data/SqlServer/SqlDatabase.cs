@@ -9,7 +9,8 @@ namespace Insanity.Testing.Integration.Data
 {
 	public static class SqlDatabase
 	{
-		public static void SetupNew(string managerName, string connectionString, Action<IDatabase> seed, params string[] dacpacFiles)
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dacpac")]
+		public static void Create(string managerName, string connectionString, Action<IDatabase> seed, params string[] dacpacFiles)
 		{
 			DatabaseManagers.Instance.Add(managerName, new SqlDatabaseManager(connectionString));
 
@@ -22,7 +23,8 @@ namespace Insanity.Testing.Integration.Data
 			}
 		}
 
-		public static void Setup(string managerName, string connectionString, Action<IDatabase> seed, params string[] dacpacFiles)
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dacpac")]
+		public static void Update(string managerName, string connectionString, Action<IDatabase> seed, params string[] dacpacFiles)
 		{
 			DatabaseManagers.Instance.Add(managerName, new SqlDatabaseManager(connectionString));
 

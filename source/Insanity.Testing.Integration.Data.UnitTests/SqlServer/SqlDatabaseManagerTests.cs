@@ -19,7 +19,7 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
 
 			string connectionString = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings[connectionStringName]].ConnectionString;
 			string dacpacFile = @"..\..\..\Insanity.Testing.Integration.Database\bin\Debug\Insanity.Testing.Integration.Database.dacpac";
-			SqlDatabase.SetupNew(managerName, connectionString, null, dacpacFile);
+			SqlDatabase.Create(managerName, connectionString, null, dacpacFile);
 
 			//TODO: Verify the contents of the database.
 
@@ -35,7 +35,7 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
 
 			string connectionString = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["TestDatabase"]].ConnectionString;
 			string dacpacFile = @"..\..\..\Insanity.Testing.Integration.Database\bin\Debug\Insanity.Testing.Integration.Database.dacpac";
-			SqlDatabase.SetupNew(managerName, connectionString, database =>
+			SqlDatabase.Create(managerName, connectionString, database =>
 			{
 				database.ExecuteNonQuery(command =>
 				{
