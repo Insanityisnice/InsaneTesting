@@ -98,7 +98,9 @@
   <ItemGroup>
     <Compile Include="ClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UriBuilderTests.cs" />
     <Compile Include="WebApi\App_Start\WebApiConfig.cs" />
+    <Compile Include="WebApi\Controllers\EntitiesController.cs" />
     <Compile Include="WebApi\Controllers\ValueController.cs" />
     <Compile Include="WebApi\Startup.cs" />
   </ItemGroup>
@@ -114,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClientTests.Client_Get_Raw.approved.json">
+      <DependentUpon>ClientTests.cs</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

@@ -12,16 +12,6 @@ namespace Insanity.Testing.Integration.Http
 	{
 		private static class Response
 		{
-			#region Private Fields
-			private static IDictionary<HttpStatusCode, Func<string, Exception>> statusCodeExceptions = new Dictionary<HttpStatusCode, Func<string, Exception>>()
-			{
-				{ HttpStatusCode.Unauthorized, stringContent => new UnauthorizedAccessException(stringContent)},
-				{ HttpStatusCode.Forbidden, stringContent => new UnauthorizedAccessException(stringContent)},
-				{ HttpStatusCode.NotImplemented, stringContent => new NotImplementedException(stringContent)},
-				{ HttpStatusCode.RequestTimeout, stringContent => new TimeoutException(stringContent)},
-			};
-			#endregion
-
 			#region Public Methods
 			public static async Task<string> ProcessAsStringAsync(HttpResponseMessage responseMessage)
 			{
@@ -45,7 +35,7 @@ namespace Insanity.Testing.Integration.Http
 			{
 				Trace.Write("Processing message as string.", "ResponseMessage");
 
-				await Validate(responseMessage);
+				responseMessage.EnsureSuccessStatusCode();
 				return responseMessage.Content != null ? await responseMessage.Content.ReadAsStringAsync() : await Task<string>.FromResult("");
 			}
 
@@ -53,21 +43,8 @@ namespace Insanity.Testing.Integration.Http
 			{
 				Trace.Write(String.Format(CultureInfo.InvariantCulture, "Processing message as {0}.", typeof(T).GetType().Name), "ResponseMessage");
 
-				await Validate(responseMessage);
+				responseMessage.EnsureSuccessStatusCode();
 				return responseMessage.Content != null ? await responseMessage.Content.ReadAsAsync<T>() : await Task<T>.FromResult(default(T));
-			}
-
-			private static async Task Validate(HttpResponseMessage responseMessage)
-			{
-				if (!responseMessage.IsSuccessStatusCode)
-				{
-					var error = await responseMessage.Content.ReadAsStringAsync();
-					Trace.Write(error, "HttpError");
-
-					throw statusCodeExceptions.ContainsKey(responseMessage.StatusCode)
-						? statusCodeExceptions[responseMessage.StatusCode](error)
-						: new InvalidOperationException(error);
-				}
 			}
 			#endregion
 		}
