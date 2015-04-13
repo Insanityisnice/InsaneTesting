@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integratio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8C55FBBA-2AFE-4C08-A7CF-9F8876108781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.Owin.UnitTests", "Insanity.Testing.Integration.Owin.UnitTests\Insanity.Testing.Integration.Owin.UnitTests.csproj", "{A0357F69-0AF6-4820-B01D-5196F3F159F2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.Data.UnitTests", "Insanity.Testing.Integration.Data.UnitTests\Insanity.Testing.Integration.Data.UnitTests.csproj", "{F8169960-063D-473F-BC74-80027F3C3D9C}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Insanity.Testing.Integration.Database", "Insanity.Testing.Integration.Database\Insanity.Testing.Integration.Database.sqlproj", "{C8BE9E61-0485-4D88-96F2-7D2E9283A555}"
@@ -41,10 +39,6 @@ Global
 		{EDF02721-4318-475B-BB9B-FFAECF4F5291}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDF02721-4318-475B-BB9B-FFAECF4F5291}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDF02721-4318-475B-BB9B-FFAECF4F5291}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0357F69-0AF6-4820-B01D-5196F3F159F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0357F69-0AF6-4820-B01D-5196F3F159F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0357F69-0AF6-4820-B01D-5196F3F159F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0357F69-0AF6-4820-B01D-5196F3F159F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F8169960-063D-473F-BC74-80027F3C3D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F8169960-063D-473F-BC74-80027F3C3D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8169960-063D-473F-BC74-80027F3C3D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,7 +55,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EDF02721-4318-475B-BB9B-FFAECF4F5291} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
-		{A0357F69-0AF6-4820-B01D-5196F3F159F2} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
 		{F8169960-063D-473F-BC74-80027F3C3D9C} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
 		{C8BE9E61-0485-4D88-96F2-7D2E9283A555} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
 	EndGlobalSection

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Insanity.Testing.Integration.Owin.UnitTests.WebApi.App_Start
+namespace Insanity.Testing.Integration.Http.UnitTests.WebApi.App_Start
 {
     public static class WebApiConfig
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Insanity.Testing.Integration.Owin.UnitTests.WebApi.Controllers
+namespace Insanity.Testing.Integration.Http.UnitTests.WebApi.Controllers
 {
     [RoutePrefix("api")]
     public class ValueController : ApiController
