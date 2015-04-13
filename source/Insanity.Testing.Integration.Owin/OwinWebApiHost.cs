@@ -8,24 +8,24 @@ using System.Threading.Tasks;
 
 namespace Insanity.Testing.Integration.Owin
 {
-	public class OwinApiHost
+	public class OwinWebApiHost
 	{
-		private string baseAddress;
 		private TestServer host;
-		private string jwtToken;
-
-		public ApiClient Client
+		private string baseAddress;
+		
+		public Client Client()
 		{
-			get
-			{
-				return new ApiClient(baseAddress, host.HttpClient, jwtToken);
-			}
+			return Client(null);
 		}
 
-		public OwinApiHost(string baseAddress, string jwtToken = null)
+		public Client Client(string jwtToken)
+		{
+			return new Client(baseAddress, host.HttpClient, jwtToken);
+		}
+
+		public OwinWebApiHost(string baseAddress)
 		{
 			this.baseAddress = baseAddress;
-			this.jwtToken = jwtToken;
 		}
 
 		public void Start<TStartup>()

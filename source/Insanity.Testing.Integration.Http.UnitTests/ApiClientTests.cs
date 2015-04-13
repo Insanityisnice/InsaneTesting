@@ -19,7 +19,7 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 		{
 			var invoker = new TestInvoker(new Task<HttpResponseMessage>(() => new HttpResponseMessage(System.Net.HttpStatusCode.OK) { Content = new StringContent("[]") }));
 
-			ApiClient target = new ApiClient("http://test_address", invoker);
+			Client target = new Client("http://test_address", invoker);
 
 			var result  = target.Get("/api/resources");
 			Approvals.VerifyJson(result);
