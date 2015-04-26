@@ -36,19 +36,6 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 		} 
 		#endregion
 
-		#region Get
-		[TestMethod]
-		public void Client_Get_Raw()
-		{
-			var uri = new UriBuilder("values");
-
-			var result = host.Client().Get(uri.ToString());
-
-			result.Should().NotBeNull();
-			Approvals.VerifyJson(result);
-		}
-		#endregion
-
 		#region GetAsync
 		[TestMethod]
 		public async Task Client_GetAsync_Raw()
@@ -58,82 +45,7 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 			var result = await host.Client().GetAsync(uri.ToString());
 
 			result.Should().NotBeNull();
-			//TODO: Figure out how to use ApprovalTests with async methods
 			result.Should().Be("[\"Value1\",\"Value2\"]");
-		}
-		#endregion
-
-		#region Get<T>
-		[TestMethod]
-		public void Client_Get_ListString()
-		{
-			var uri = new UriBuilder("values");
-
-			var result = host.Client().Get<List<string>>(uri.ToString());
-
-			result.Should().NotBeNull();
-			result.Should().BeEquivalentTo(new[] { "Value1", "Value2" });
-		}
-
-		[TestMethod]
-		public void Client_Get_String()
-		{
-			var uri = new UriBuilder("values").WithId(1);
-
-			var result = host.Client().Get<string>(uri.ToString());
-
-			result.Should().NotBeNull();
-			result.Should().Be("Value1");
-		}
-
-		[TestMethod]
-		public void Client_Get_ListEntity()
-		{
-			var uri = new UriBuilder("entities");
-
-			var result = host.Client().Get<List<Entity>>(uri.ToString());
-
-			result.Should().NotBeNull();
-			result.ShouldBeEquivalentTo(new List<Entity>() 
-			{ 
-				new Entity() { Id = 1, Name = "Name1" }, 
-				new Entity() { Id = 2, Name = "Name2" }
-			});
-		}
-
-		[TestMethod]
-		public void Client_Get_ListWrongType()
-		{
-			var uri = new UriBuilder("entities");
-
-			var result = host.Client().Get<List<EntityFalse>>(uri.ToString());
-
-			result.Should().NotBeNull();
-			result.ShouldBeEquivalentTo(new List<EntityFalse>() 
-			{ 
-				new EntityFalse(), 
-				new EntityFalse()
-			});
-		}
-
-		[TestMethod]
-		public void Client_Get_WrongType()
-		{
-			var uri = new UriBuilder("entities").WithId(1);
-
-			var result = host.Client().Get<EntityFalse>(uri.ToString());
-
-			result.Should().NotBeNull();
-			result.ShouldBeEquivalentTo(new EntityFalse());
-		}
-
-		[TestMethod]
-		public void Client_Get_MissingResource()
-		{
-			var uri = new UriBuilder("notfound").WithId(1);
-
-			new Action(() => host.Client().Get<string>(uri.ToString()))
-				.ShouldThrow<HttpRequestException>();
 		}
 		#endregion
 
@@ -211,18 +123,7 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 		}
 		#endregion
 
-		#region Post & PostAsync
-		[TestMethod]
-		public void Client_PostRaw_String()
-		{
-			var uri = new UriBuilder("values");
-
-			var result = host.Client().Post(uri.ToString(), "Value1");
-
-			result.Should().NotBeNull();
-			result.Should().Be("\"Value1\"");
-		}
-
+		#region PostAsync
 		[TestMethod]
 		public async Task Client_PostAsyncRaw_String()
 		{
@@ -232,17 +133,6 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 
 			result.Should().NotBeNull();
 			result.Should().Be("\"Value1\"");
-		}
-
-		[TestMethod]
-		public void Client_Post_String()
-		{
-			var uri = new UriBuilder("values");
-
-			var result = host.Client().Post<string>(uri.ToString(), "Value1");
-
-			result.Should().NotBeNull();
-			result.Should().Be("Value1");
 		}
 
 		[TestMethod]
@@ -257,18 +147,7 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 		}
 		#endregion
 
-		#region Put & PutAsync
-		[TestMethod]
-		public void Client_PutRaw_String()
-		{
-			var uri = new UriBuilder("values").WithId(1);
-
-			var result = host.Client().Put(uri.ToString(), "Value1");
-
-			result.Should().NotBeNull();
-			result.Should().Be("\"Value1\"");
-		}
-
+		#region PutAsync
 		[TestMethod]
 		public async Task Client_PutAsyncRaw_String()
 		{
@@ -278,17 +157,6 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 
 			result.Should().NotBeNull();
 			result.Should().Be("\"Value1\"");
-		}
-
-		[TestMethod]
-		public void Client_Put_String()
-		{
-			var uri = new UriBuilder("values").WithId(1);
-
-			var result = host.Client().Put<string>(uri.ToString(), "Value1");
-
-			result.Should().NotBeNull();
-			result.Should().Be("Value1");
 		}
 
 		[TestMethod]
@@ -303,15 +171,7 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 		}
 		#endregion
 
-		#region Delete & DeleteAsync
-		[TestMethod]
-		public void Client_Delete()
-		{
-			var uri = new UriBuilder("values").WithId(1);
-
-			host.Client().Delete(uri.ToString());
-		}
-
+		#region DeleteAsync
 		[TestMethod]
 		public async Task Client_DeleteAsync()
 		{

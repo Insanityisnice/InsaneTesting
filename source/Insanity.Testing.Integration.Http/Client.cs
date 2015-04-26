@@ -25,16 +25,6 @@ namespace Insanity.Testing.Integration.Http
 		#endregion
 
 		#region Get
-		public string Get(string resource)
-		{
-			return GetAsync(resource).GetAwaiter().GetResult();
-		}
-
-		public T Get<T>(string resource)
-		{
-			return GetAsync<T>(resource).GetAwaiter().GetResult();
-		}
-
 		public async Task<string> GetAsync(string resource)
 		{
 			var response = await request.SendAsync(resource, HttpMethod.Get, JsonMediaTypeFormatter.DefaultMediaType.MediaType, invoker.SendAsync);
@@ -49,16 +39,6 @@ namespace Insanity.Testing.Integration.Http
 		#endregion
 
 		#region Post
-		public string Post(string resource, string content)
-		{
-			return PostAsync(resource, content).GetAwaiter().GetResult();
-		}
-
-		public T Post<T>(string resource, T content)
-		{
-			return PostAsync<T>(resource, content).GetAwaiter().GetResult();
-		}
-
 		public async Task<string> PostAsync(string resource, string content)
 		{
 			var result = await request.SendAsync(resource, HttpMethod.Post, JsonMediaTypeFormatter.DefaultMediaType.MediaType, content, invoker.SendAsync);
@@ -73,16 +53,6 @@ namespace Insanity.Testing.Integration.Http
 		#endregion
 
 		#region Put
-		public string Put(string resource, string content)
-		{
-			return PutAsync(resource, content).GetAwaiter().GetResult();
-		}
-
-		public T Put<T>(string resource, T content)
-		{
-			return PutAsync<T>(resource, content).GetAwaiter().GetResult();
-		}
-
 		public async Task<string> PutAsync(string resource, string content)
 		{
 			var result = await request.SendAsync(resource, HttpMethod.Put, JsonMediaTypeFormatter.DefaultMediaType.MediaType, content, invoker.SendAsync);
@@ -97,11 +67,6 @@ namespace Insanity.Testing.Integration.Http
 		#endregion
 
 		#region Delete
-		public void Delete(string resource)
-		{
-			DeleteAsync(resource).GetAwaiter().GetResult();
-		}
-
 		public async Task DeleteAsync(string resource)
 		{
 			var result = await request.SendAsync(resource, HttpMethod.Delete, JsonMediaTypeFormatter.DefaultMediaType.MediaType, invoker.SendAsync);
