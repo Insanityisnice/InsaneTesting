@@ -35,120 +35,136 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Data.Tools.Schema.Sql">
-      <HintPath>..\..\SqlServer\DAC\Assemblies\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>
+    <Reference Include="Microsoft.Data.Tools.Contracts, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlServer.Dac.12.0.0\lib\Microsoft.Data.Tools.Contracts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlServer.Dac.12.0.0\lib\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Data.Tools.Schema.Sql.UnitTesting, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SqlServer\DAC\Assemblies\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.Tools.Utilities">
-      <HintPath>..\..\SqlServer\DAC\Assemblies\Microsoft.Data.Tools.Utilities.dll</HintPath>
+    <Reference Include="Microsoft.Data.Tools.Schema.Tasks.Sql, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlServer.Dac.12.0.0\lib\Microsoft.Data.Tools.Schema.Tasks.Sql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Utilities.Sql, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlServer.Dac.12.0.0\lib\Microsoft.Data.Tools.Schema.Utilities.Sql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Utilities, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlServer.Dac.12.0.0\lib\Microsoft.Data.Tools.Utilities.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfoExtended, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.ConnectionInfoExtended.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.ConnectionInfoExtended.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Dac">
-      <HintPath>..\..\SqlServer\DAC\Assemblies\Microsoft.SqlServer.Dac.dll</HintPath>
+    <Reference Include="Microsoft.SqlServer.Dac, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlServer.Dac.12.0.0\lib\Microsoft.SqlServer.Dac.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Dac.Extensions">
-      <HintPath>..\..\SqlServer\DAC\Assemblies\Microsoft.SqlServer.Dac.Extensions.dll</HintPath>
+    <Reference Include="Microsoft.SqlServer.Dac.Extensions, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlServer.Dac.12.0.0\lib\Microsoft.SqlServer.Dac.Extensions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Dmf, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Dmf.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Dmf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Dmf.Adapters, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Dmf.Adapters.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Dmf.Adapters.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.DmfSqlClrWrapper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.DmfSqlClrWrapper.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.DmfSqlClrWrapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.Collector, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Management.Collector.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Management.Collector.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.CollectorEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Management.CollectorEnum.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Management.CollectorEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.Utility, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Management.Utility.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Management.Utility.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.UtilityEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Management.UtilityEnum.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Management.UtilityEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.XEvent, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Management.XEvent.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Management.XEvent.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.XEventDbScoped, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Management.XEventDbScoped.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Management.XEventDbScoped.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.XEventDbScopedEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Management.XEventDbScopedEnum.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Management.XEventDbScopedEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.XEventEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Management.XEventEnum.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Management.XEventEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.PolicyEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.PolicyEnum.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.PolicyEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.RegSvrEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.RegSvrEnum.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.RegSvrEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.ServiceBrokerEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.ServiceBrokerEnum.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.ServiceBrokerEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Smo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Smo.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Smo.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.SmoExtended, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.SmoExtended.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.SmoExtended.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.SqlEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.SqlEnum.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.SqlEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.SqlWmiManagement, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.SqlWmiManagement.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.SqlWmiManagement.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.SString, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.SString.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.SString.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.TransactSql.ScriptDom.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.TransactSql.ScriptDom.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.Types.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.WmiEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.8\lib\40\Microsoft.SqlServer.WmiEnum.dll</HintPath>
+      <HintPath>..\packages\Naos.External.MS-SQL-SDK.12.0.2000.9\lib\40\Microsoft.SqlServer.WmiEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

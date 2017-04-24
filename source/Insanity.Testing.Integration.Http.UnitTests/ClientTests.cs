@@ -114,7 +114,7 @@ namespace Insanity.Testing.Integration.Http.UnitTests
 		}
 
 		[TestMethod]
-		public async Task Client_GetAsync_MissingResource()
+		public void Client_GetAsync_MissingResource()
 		{
 			var uri = new UriBuilder("notfound").WithId(1);
 
