@@ -2,7 +2,13 @@
 This is a library for integration testing from service layer to database.
 
 # Supported Databases
-Currently SQL Server 2014 or older is the only supported database.
+Currently SQL Server 2014.
+
+To create the localdb instance use the following commands
+
+> sqllocaldb c MSSQLLocalDB12 12.0 -s
+
+This will create and start the localdb instance used in the tests.
 
 # Supported Hosts
 Currently Owin is the only supported API host.

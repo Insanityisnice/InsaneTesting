@@ -13,7 +13,7 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
         public void SingleDacpack_DeploingToLocalDb_DatabaseCreatedAndDeployed()
         {
             const string managerName = "Test";
-            const string connectionStringName = "TestDatabase";
+            const string connectionStringName = "LocalDb_TestDatabase";
 
             DatabaseManagers.SetDataDirectory();
 
@@ -34,13 +34,40 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
         }
 
         [TestMethod]
-        public void SingleDacpack_DeploingToLocalDb_DatabaseCreatedDeployedAndSeeded()
+        [Ignore]
+        public void SingleDacpack_DeploingToLocalDb_AttachDb_DatabaseCreatedAndDeployed()
         {
             const string managerName = "Test";
+            const string connectionStringName = "LocalDb_Attach_TestDatabase";
 
             DatabaseManagers.SetDataDirectory();
 
-            string connectionString = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["TestDatabase"]].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings[connectionStringName]].ConnectionString;
+            string dacpacFile = @"..\..\..\Insanity.Testing.Integration.Database\bin\Debug\Insanity.Testing.Integration.Database.dacpac";
+
+
+            try
+            {
+                SqlDatabase.Create(managerName, connectionString, null, dacpacFile);
+
+                //TODO: Verify the contents of the database.
+            }
+            finally
+            {
+                SqlDatabase.Delete(managerName);
+            }
+        }
+
+        [TestMethod]
+        [Ignore]
+        public void SingleDacpack_DeploingToLocalDb_AttachDb_DatabaseCreatedDeployedAndSeeded()
+        {
+            const string managerName = "Test";
+            const string connectionStringName = "LocalDb_Attach_TestDatabase";
+
+            DatabaseManagers.SetDataDirectory();
+
+            string connectionString = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings[connectionStringName]].ConnectionString;
             string dacpacFile = @"..\..\..\Insanity.Testing.Integration.Database\bin\Debug\Insanity.Testing.Integration.Database.dacpac";
 
             try

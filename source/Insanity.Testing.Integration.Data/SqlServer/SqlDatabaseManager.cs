@@ -124,15 +124,19 @@ namespace Insanity.Testing.Integration.Data.SqlServer
                     {
                         database.DatabaseOptions.UserAccess = DatabaseUserAccess.Single;
                         database.Alter(TerminationClause.RollbackTransactionsImmediately);
-                        server.KillDatabase(databaseName);
+
+                        database.Drop();
                     }
                 }
                 else
                 {
-                    server.KillAllProcesses(databaseName);
+                    if (!String.IsNullOrWhiteSpace(connectionStringBuilder.AttachDBFilename))
+                    {
+                        server.KillAllProcesses(databaseName);
 
-                    File.Delete(GetDatabaseFileName(connectionStringBuilder.AttachDBFilename));
-                    File.Delete(GetDatabaseFileName(connectionStringBuilder.AttachDBFilename.Replace(".mdf", "_log.ldf")));
+                        File.Delete(GetDatabaseFileName(connectionStringBuilder.AttachDBFilename));
+                        File.Delete(GetDatabaseFileName(connectionStringBuilder.AttachDBFilename.Replace(".mdf", "_log.ldf")));
+                    }
                 }
             }
 
