@@ -106,6 +106,7 @@ namespace Insanity.Testing.Integration.Data.SqlServer
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
             public void DeleteDatabase()
             {
                 //TODO: Make sure the database is attached.
@@ -126,10 +127,15 @@ namespace Insanity.Testing.Integration.Data.SqlServer
                         database.Alter(TerminationClause.RollbackTransactionsImmediately);
 
                         database.Drop();
+
+                        File.Delete(Path.Combine(server.Information.MasterDBPath, $"{databaseName}_Primary.mdf"));
+                        File.Delete(Path.Combine(server.Information.MasterDBLogPath, $"{databaseName}_Primary.ldf"));
                     }
                 }
                 else
                 {
+                    //TODO: Maybe try a database.Drop() here and see if that cleans up the _Primary files.
+
                     if (!String.IsNullOrWhiteSpace(connectionStringBuilder.AttachDBFilename))
                     {
                         server.KillAllProcesses(databaseName);
@@ -138,6 +144,15 @@ namespace Insanity.Testing.Integration.Data.SqlServer
                         File.Delete(GetDatabaseFileName(connectionStringBuilder.AttachDBFilename.Replace(".mdf", "_log.ldf")));
                     }
                 }
+
+                //HACK: Not sure why but these files are getting created when attachdbfile logic is run.
+                //      Need to look into this further at a later date.
+                try
+                {
+                    File.Delete(Path.Combine(server.Information.MasterDBPath, $"{databaseName}_Primary.mdf"));
+                    File.Delete(Path.Combine(server.Information.MasterDBLogPath, $"{databaseName}_Primary.ldf"));
+                }
+                finally { }
             }
 
             public int ExecuteNonQuery(Action<DbCommand> prepare)

@@ -1,1 +1,1 @@
-﻿INSERT INTO [Order] (Id) VALUES (1)
+﻿INSERT INTO [dbo].[Order] (Id) VALUES (1)
