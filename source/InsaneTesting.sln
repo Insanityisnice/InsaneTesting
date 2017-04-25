@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.Owin", "Insanity.Testing.Integration.Owin\Insanity.Testing.Integration.Owin.csproj", "{C08C9ECA-70A6-47EE-BF65-162CD58CCE75}"
 EndProject
@@ -16,6 +16,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.Data.UnitTests", "Insanity.Testing.Integration.Data.UnitTests\Insanity.Testing.Integration.Data.UnitTests.csproj", "{F8169960-063D-473F-BC74-80027F3C3D9C}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Insanity.Testing.Integration.Database", "Insanity.Testing.Integration.Database\Insanity.Testing.Integration.Database.sqlproj", "{C8BE9E61-0485-4D88-96F2-7D2E9283A555}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.IISExpress", "Insanity.Testing.Integration.IISExpress\Insanity.Testing.Integration.IISExpress.csproj", "{178A8D76-D4E4-426A-AC46-C587CEBE4E5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.IISExpress.UnitTests", "Insanity.Testing.Integration.IISExpress.UnitTests\Insanity.Testing.Integration.IISExpress.UnitTests.csproj", "{FF7F839F-56D7-44F0-898C-67046284854D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insanity.Testing.Integration.MVC452", "Insanity.Testing.Integration.MVC452\Insanity.Testing.Integration.MVC452.csproj", "{A1DAE8AE-3F48-4F71-9EE6-B15A714122B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +55,18 @@ Global
 		{C8BE9E61-0485-4D88-96F2-7D2E9283A555}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8BE9E61-0485-4D88-96F2-7D2E9283A555}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8BE9E61-0485-4D88-96F2-7D2E9283A555}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{178A8D76-D4E4-426A-AC46-C587CEBE4E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{178A8D76-D4E4-426A-AC46-C587CEBE4E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{178A8D76-D4E4-426A-AC46-C587CEBE4E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{178A8D76-D4E4-426A-AC46-C587CEBE4E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF7F839F-56D7-44F0-898C-67046284854D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF7F839F-56D7-44F0-898C-67046284854D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF7F839F-56D7-44F0-898C-67046284854D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF7F839F-56D7-44F0-898C-67046284854D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1DAE8AE-3F48-4F71-9EE6-B15A714122B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1DAE8AE-3F48-4F71-9EE6-B15A714122B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1DAE8AE-3F48-4F71-9EE6-B15A714122B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1DAE8AE-3F48-4F71-9EE6-B15A714122B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,5 +75,7 @@ Global
 		{EDF02721-4318-475B-BB9B-FFAECF4F5291} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
 		{F8169960-063D-473F-BC74-80027F3C3D9C} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
 		{C8BE9E61-0485-4D88-96F2-7D2E9283A555} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
+		{FF7F839F-56D7-44F0-898C-67046284854D} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
+		{A1DAE8AE-3F48-4F71-9EE6-B15A714122B2} = {8C55FBBA-2AFE-4C08-A7CF-9F8876108781}
 	EndGlobalSection
 EndGlobal
