@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Dac;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -8,7 +9,7 @@ namespace Insanity.Testing.Integration.Data
 	public interface IDatabase
 	{
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dacpac")]
-		void Create(params string[] dacpacFiles);
+		void Create(Action<DacDeployOptions> configure, params string[] dacpacFiles);
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dacpac")]
 		void Update(params string[] dacpacFiles);
 

@@ -1,4 +1,5 @@
 ﻿using Insanity.Testing.Integration.Data.SqlServer;
+using Microsoft.SqlServer.Dac;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,12 @@ namespace Insanity.Testing.Integration.Data
 	public static class SqlDatabase
 	{
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dacpac")]
-		public static void Create(string managerName, string connectionString, Action<IDatabase> seed, params string[] dacpacFiles)
+		public static void Create(string managerName, string connectionString, Action<IDatabase> seed, Action<DacDeployOptions> configure, params string[] dacpacFiles)
 		{
 			DatabaseManagers.Instance.Add(managerName, new SqlDatabaseManager(connectionString));
 
 			var database = DatabaseManagers.Instance[managerName].Database;
-			database.Create(dacpacFiles);
+			database.Create(configure, dacpacFiles);
 
 			if (seed != null)
 			{

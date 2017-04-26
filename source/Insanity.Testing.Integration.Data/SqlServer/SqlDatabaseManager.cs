@@ -48,7 +48,7 @@ namespace Insanity.Testing.Integration.Data.SqlServer
             #endregion
 
             #region IDatabase Implementation
-            public void Create(params string[] dacpacFiles)
+            public void Create(Action<DacDeployOptions> configure, params string[] dacpacFiles)
             {
                 if (dacpacFiles == null) throw new ArgumentNullException("dacpacFiles");
 
@@ -59,11 +59,11 @@ namespace Insanity.Testing.Integration.Data.SqlServer
 
                 if(!String.IsNullOrWhiteSpace(connectionStringBuilder.AttachDBFilename))
                 {
-                    CreateNewAttachedDbFileDatabase(dacpacFiles, connectionStringBuilder);
+                    CreateNewAttachedDbFileDatabase(dacpacFiles, connectionStringBuilder, configure);
                 }
                 else
                 {
-                    CreateNewDatabase(dacpacFiles, connectionStringBuilder);	
+                    CreateNewDatabase(dacpacFiles, connectionStringBuilder, configure);	
                 }
             }
             
@@ -262,7 +262,7 @@ namespace Insanity.Testing.Integration.Data.SqlServer
                 return filename;
             }
 
-            private void CreateNewDatabase(string[] dacpacFiles, SqlConnectionStringBuilder connectionStringBuilder)
+            private void CreateNewDatabase(string[] dacpacFiles, SqlConnectionStringBuilder connectionStringBuilder, Action<DacDeployOptions> configure)
             {
                 var created = false;
                 ApplyDacPackageFiles(dacpacFiles, connectionStringBuilder, () =>
@@ -276,11 +276,16 @@ namespace Insanity.Testing.Integration.Data.SqlServer
                         created = false;
                     }
 
+                    if (configure != null)
+                    {
+                        configure(options);
+                    }
+
                     return options;
                 });
             }
 
-            private void CreateNewAttachedDbFileDatabase(string[] dacpacFiles, SqlConnectionStringBuilder connectionStringBuilder)
+            private void CreateNewAttachedDbFileDatabase(string[] dacpacFiles, SqlConnectionStringBuilder connectionStringBuilder, Action<DacDeployOptions> configure)
             {
                 try
                 {
@@ -290,7 +295,15 @@ namespace Insanity.Testing.Integration.Data.SqlServer
                     ApplyDacPackageFiles(dacpacFiles, connectionStringBuilder, () =>
                     {
                         var options = new DacDeployOptions();
-                        options.DropObjectsNotInSource = false;
+                        if (configure != null)
+                        {
+                            configure(options);
+                        }
+                        else
+                        {
+                            options.DropObjectsNotInSource = false;
+                        }
+       
                         return options;
                     });
                 }

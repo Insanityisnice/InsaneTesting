@@ -18,7 +18,7 @@ namespace Insanity.Testing.Integration.IISExpress
         {
             if (String.IsNullOrWhiteSpace(applicationPath)) throw new ArgumentException("Path to applicaiton path is required", nameof(applicationPath));
             if (!Directory.Exists(applicationPath)) throw new ArgumentException($"The path {applicationPath} does not exist.", nameof(applicationPath));
-            if (port < 8080 || port >= 8100) throw new ArgumentOutOfRangeException(nameof(port), "Port range must be between 8080 and 8099.");
+            if (port < 0 || port >= 65535) throw new ArgumentOutOfRangeException(nameof(port), "Port range must be between 8080 and 8099.");
 
             this.applicationPath = applicationPath;
             this.port = port;

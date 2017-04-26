@@ -23,7 +23,7 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
 
             try
             {
-                SqlDatabase.Create(managerName, connectionString, null, dacpacFile);
+                SqlDatabase.Create(managerName, connectionString, null, null, dacpacFile);
 
                 //TODO: Verify the contents of the database.
             }
@@ -53,7 +53,7 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
                         command.CommandText = GetResourceString("Insanity.Testing.Integration.Data.UnitTests.SqlServer.Seed.sql");
                         command.CommandType = System.Data.CommandType.Text;
                     });
-                }, dacpacFile);
+                }, null, dacpacFile);
 
                 //TODO: Verify the contents of the database.
 
@@ -78,7 +78,7 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
 
             try
             {
-                SqlDatabase.Create(managerName, connectionString, null, dacpacFile);
+                SqlDatabase.Create(managerName, connectionString, null, null, dacpacFile);
 
                 //TODO: Verify the contents of the database.
             }
@@ -110,7 +110,7 @@ namespace Insanity.Testing.Integration.Data.UnitTests.SqlServer
                         command.CommandText = GetResourceString("Insanity.Testing.Integration.Data.UnitTests.SqlServer.Seed.sql");
                         command.CommandType = System.Data.CommandType.Text;
                     });
-                }, dacpacFile);
+                }, null, dacpacFile);
 
                 //TODO: Verify the contents of the database.
 
