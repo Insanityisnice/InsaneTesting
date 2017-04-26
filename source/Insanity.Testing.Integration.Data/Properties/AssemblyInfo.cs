@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Insanity.Testing.Integration.Data")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A library to enable deployment of Sql Databases using the DAC framework.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("InsanityIsNice")]
 [assembly: AssemblyProduct("Insanity.Testing.Integration.Data")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]

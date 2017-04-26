@@ -187,6 +187,7 @@
     <Compile Include="SqlServer\SqlDatabaseManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Insanity.Testing.Integration.Data.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
