@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Insanity.Testing.Integration.Data")]
+[assembly: AssemblyTitle("Insane Testing Data")]
 [assembly: AssemblyDescription("A library to enable deployment of Sql Databases using the DAC framework.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("InsanityIsNice")]
