@@ -189,6 +189,7 @@
   <ItemGroup>
     <None Include="Insanity.Testing.Integration.Data.nuspec" />
     <None Include="packages.config" />
+    <None Include="publish_nuget.bat" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
